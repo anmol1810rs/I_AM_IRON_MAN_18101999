@@ -6,6 +6,9 @@ import webbrowser
 import os
 import random
 import smtplib
+from twilio.rest import Client
+from flask import Flask
+from twilio.twiml.voice_response import VoiceResponse, Say
 
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
@@ -54,7 +57,6 @@ def sendEmail(to, content):
     server.sendmail('96anmolmalhotra@gmail.com', to, content)
     server.close()
 
-
 if __name__=="__main__":
     wishMe()
     while True:
@@ -85,6 +87,9 @@ if __name__=="__main__":
             os.startfile(os.path.join(music_dir, songs[value]))
             print(songs)
 
+        elif 'who is pratyush' in query:
+            speak("he is your dad , Gaandu!")
+
         elif 'what is the time' in query:
             strTime = datetime.datetime.now().strftime("%H:%M:%S")
             print(strTime)
@@ -110,3 +115,21 @@ if __name__=="__main__":
             except Exception as e:
                 print(e)
                 speak("Sorry my friend anmol bhai .I am tired Right Now .I need Some Sleep")
+        
+        elif 'send a whatsapp message to dad' in query:
+            client = Client("AC7dfaea83732d6b3dceaf36cf248b393e","d7c3c6adde46de6046421580c4c812c6")
+            from_whatsapp_number='whatsapp:+14155238886'
+            to_whatsapp_number='whatsapp:+919911519233'
+            speak('what should i send to dad?')
+            content=takeCommand()
+            speak('message sent')
+            client.messages.create(body=content, from_=from_whatsapp_number,
+                                    to=to_whatsapp_number)
+        
+        elif 'call anmol jarvis' in query:
+            client=Client("AC7dfaea83732d6b3dceaf36cf248b393e","d7c3c6adde46de6046421580c4c812c6")
+            call=client.calls.create(to="+919911519233", from_="+12566932680", url="C:\\Users\\user\\Desktop\\file.xml")
+            print(call.sid)
+
+            
+        
