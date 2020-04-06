@@ -9,6 +9,7 @@ import smtplib
 from twilio.rest import Client
 from flask import Flask
 from twilio.twiml.voice_response import VoiceResponse, Say
+from sys import exit
 
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
@@ -28,7 +29,7 @@ def wishMe():
     else:
         speak("good evening anmol")
 
-    speak("i am jarvis how may i help you")
+    speak("i am odin, you are just like my son, thor, so, how can i help you")
 
 def takeCommand():
     #it takes microphone input from user and returns string output
@@ -53,8 +54,8 @@ def sendEmail(to, content):
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.ehlo()
     server.starttls()
-    server.login('96anmolmalhotra@gmail.com','XXXXWESEWDDAS')
-    server.sendmail('96anmolmalhotra@gmail.com', to, content)
+    server.login('96xxxil.com','#password')
+    server.sendmail('96xxxil.com', to, content)
     server.close()
 
 if __name__=="__main__":
@@ -72,11 +73,26 @@ if __name__=="__main__":
             speak(results)
         
         elif 'open youtube' in query:
-            webbrowser.open("youtube.com")
+            speak("what should i open on youtube")
+            content=takeCommand()
+            webbrowser.open("https://www.youtube.com/results?search_query="+content)
         
         elif 'open google' in query:
-            webbrowser.open("google.com")
+            speak("what should i open in google")
+            content=takeCommand()
+            webbrowser.open("https://www.google.com/search?q="+content+"&rlz=1C1OKWM_enIN895IN896&oq="+content+"&aqs=chrome..69i57j0l7.3322j0j8&sourceid=chrome&ie=UTF-8")
         
+        elif 'open music online' in query:
+            speak('what do you want to play')
+            content=takeCommand()
+            webbrowser.open('https://music.youtube.com/watch?v='+content+'&feature=share')
+
+        elif 'buy' in query:
+            speak('i feel, amazon is a great sight to buy products, what do you want to buy')
+            content=takeCommand()
+            speak('give me a second Anmol!')
+            webbrowser.open("https://www.amazon.in/s?k="+content+"&ref=nb_sb_noss_2")
+
         elif 'open leetcode' in query:
             webbrowser.open("leetcode.com")
 
@@ -88,48 +104,60 @@ if __name__=="__main__":
             print(songs)
 
         elif 'who is pratyush' in query:
-            speak("he is your dad , Gaandu!")
+            speak("He is that guy who, ate fuckinnnnnnng 20 momos in one go!!!!")
 
         elif 'what is the time' in query:
             strTime = datetime.datetime.now().strftime("%H:%M:%S")
             print(strTime)
             speak(f"Sir,The Time is {strTime}")
+            speak('Tick, Tock, Tick, Tock')
 
         elif 'open code' in query:
             code_path = "G:\\Microsoft VS Code\\Code.exe"
             os.startfile(code_path)
         
-        elif 'kaisa hai' in query:
-            speak('badhiya, tum bataao!')
+        elif 'thanks a lot' in query:
+            speak('haha, i am happy now!')
+
+        elif 'say hi to my friend' in query:
+            speak("anmol, what is your friends name")
+            content=takeCommand()
+            speak("Hey, "+content+", hope you are doing great")
+
 
         elif 'open netflix' in query:
-            webbrowser.open('https://www.netflix.com/watch/80205343?trackId=14170286&tctx=2%2C0%2Cbb9fd017-9d5b-4913-a5a1-21be8b85efd1-30330052%2C19595478-04cf-4968-ac5d-e5e254a2838a_23083602X3XX1586150276788%2C19595478-04cf-4968-ac5d-e5e254a2838a_ROOT')
+            webbrowser.open('xxxxxx-4913-a5a1-21be8b85efd1-30330052xxxxxxxx23083602X3XX1586150276788%2C19595478-04cf-4968-ac5d-e5e254a2838a_ROOT')
        
-        elif  'email to dad' in query:
+        elif  'email my friend' in query:
             try:
                 speak("What should i say ?")
                 content = takeCommand()
-                to = "malhautraopticians@gmail.com"
+                to = "axxxx.chaxxxxxx.com"
                 sendEmail(to, content)
                 speak("Email has been sent!")
             except Exception as e:
                 print(e)
                 speak("Sorry my friend anmol bhai .I am tired Right Now .I need Some Sleep")
         
-        elif 'send a whatsapp message to dad' in query:
-            client = Client("AC7dfaea83732d6b3dceaf36cf248b393e","d7c3c6adde46de6046421580c4c812c6")
-            from_whatsapp_number='whatsapp:+14155238886'
-            to_whatsapp_number='whatsapp:+919911519233'
-            speak('what should i send to dad?')
+        elif 'whatsapp' in query:
+            client = Client("#client_id","#auth_id")
+            from_whatsapp_number='whatsapp:+14xxxxxxx6'
+            to_whatsapp_number='whatsapp:+91xxxxxx3'
+            speak("whom should i send a whatsapp to")
+            name=takeCommand()
+            speak('what should i send to, '+name)
             content=takeCommand()
             speak('message sent')
             client.messages.create(body=content, from_=from_whatsapp_number,
                                     to=to_whatsapp_number)
+
+        elif  'good night' in query:
+            speak('good night anmol, i was really tired to be honest, haha')
+            exit(0)
+            
+
         
-        elif 'call anmol jarvis' in query:
-            client=Client("AC7dfaea83732d6b3dceaf36cf248b393e","d7c3c6adde46de6046421580c4c812c6")
-            call=client.calls.create(to="+919911519233", from_="+12566932680", url="C:\\Users\\user\\Desktop\\file.xml")
-            print(call.sid)
+        
+      
 
             
-        
