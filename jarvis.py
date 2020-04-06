@@ -64,7 +64,7 @@ if __name__=="__main__":
         if 'wikipedia' in query:
             speak('searching wikipedia...')
             query = query.replace("wikipedia", "")
-            results=wikipedia.summary(query, sentences=2)
+            results=wikipedia.summary(query, sentences=5)
             speak("According to Wikipedia")
             print(results)
             speak(results)
@@ -97,7 +97,9 @@ if __name__=="__main__":
         elif 'kaisa hai' in query:
             speak('badhiya, tum bataao!')
 
-        
+        elif 'open netflix' in query:
+            webbrowser.open('https://www.netflix.com/watch/80205343?trackId=14170286&tctx=2%2C0%2Cbb9fd017-9d5b-4913-a5a1-21be8b85efd1-30330052%2C19595478-04cf-4968-ac5d-e5e254a2838a_23083602X3XX1586150276788%2C19595478-04cf-4968-ac5d-e5e254a2838a_ROOT')
+       
         elif  'email to dad' in query:
             try:
                 speak("What should i say ?")
